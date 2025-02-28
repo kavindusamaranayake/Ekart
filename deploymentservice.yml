@@ -15,9 +15,9 @@ spec:
       containers:
         - name: shopping-e-cart
           image: kavindusamaranayake/shopping-cart:latest # Image that will be used to containers in the cluster
-          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8070 # The port that the container is running on in the cluster
+          
 
 
 ---
@@ -26,10 +26,11 @@ kind: Service # Kubernetes resource kind we are creating
 metadata: # Metadata of the resource kind we are creating
   name: shopping-svc
 spec:
+  type: LoadBalancer # type of the service.
   selector:
     app: shopping
   ports:
     - protocol: "TCP"
-      port: 8070 # The port that the service is running on in the cluster
+      port: 80 # The port that the service is running on in the cluster
       targetPort: 8070 # The port exposed by the service
-  type: LoadBalancer # type of the service.
+  
